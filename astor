@@ -1,0 +1,34 @@
+#!/usr/bin/env ruby
+# encoding: UTF-8
+
+$stdout.sync = true
+
+require 'optparse'
+require 'yaml'
+
+cfg = YAML.load_file(File.expand_path('config/astor.yml'))
+
+# Default options are loaded from the YAML config file but the CLI has priority.
+opts = {}
+opts[:srv]  = "#{cfg[:collector][:host]}:#{cfg[:collector][:port]}"
+opts[:rest] = "#{cfg[:rest][:host]}:#{cfg[:rest][:port]}"
+opts[:zmq]  = "#{cfg[:zmq][:host]}:#{cfg[:zmq][:port]}"
+opts[:db]   = cfg[:db] || File.expand_path('db')
+opts[:vrb]  = cfg[:verbose]
+
+# CLI option parser
+OptionParser.new do |op|
+  op.banner = 'Usage: ./astor [options] '
+  op.on('-s', '--srv HOST:PORT', "Metrics collector (#{opts[:srv]})") {|s| opts[:srv]  = s }
+  op.on('-r', '--rest HOST:PORT',"REST API (#{opts[:rest]})")         {|r| opts[:rest] = r }
+  op.on('-z', '--zmq HOST:PORT', "0MQ publisher (#{opts[:zmq]})")     {|z| opts[:zmq]  = z }
+  op.on('-d', '--db PATH', "Database path (#{opts[:db]})")            {|d| opts[:db]   = d }
+  op.on('-v', '--verbose', "Verbose logging (#{opts[:vrb]})")         {|v| opts[:vrb]  = v }
+end.parse!
+
+require 'bundler'
+Bundler.require :server
+
+require_relative 'lib/runner'
+
+Astor::Runner.new(opts).run!

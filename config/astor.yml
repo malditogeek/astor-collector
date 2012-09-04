@@ -1,0 +1,20 @@
+# Host and port for the data collector [UDP]
+:collector:
+  :host: 0.0.0.0
+  :port: 8888
+
+# Host and port for the REST API [TCP]
+:rest:
+  :host: 0.0.0.0
+  :port: 8889
+
+# ZeroMQ publisher [TCP]
+:zmq:
+  :host: 0.0.0.0
+  :port: 8890
+
+# Path for the DB, if not present defaults to $PWD
+:db:
+
+# Verbose logging
+:verbose: false

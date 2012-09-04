@@ -1,0 +1,14 @@
+*.swp
+*.swo
+.DS_Store
+
+# Bundler binstubs
+bin
+.bundle
+
+# Deployment
+config/ec2.yml
+config/deploy.rb
+
+# Astor
+db

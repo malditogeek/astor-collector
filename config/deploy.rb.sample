@@ -1,0 +1,59 @@
+require 'bundler'
+Bundler.require :development
+
+require 'bundler/capistrano'
+require 'capify-ec2/capistrano'
+
+ssh_options[:forward_agent] = true
+default_run_options[:pty] = true
+
+set :application, "astor"
+set :scm, :git
+
+##
+## Deployment settings
+##
+set :repository,  "<YOUR_ASTOR-COLLECTOR_GIT_REPOSITORY>"
+set :user, "ubuntu"
+set :deploy_to, "/var/www/#{application}"
+
+set :user, user
+set :branch, "master"
+set :scm_verbose, false
+set :use_sudo, false
+
+ec2_roles :name => :app, :options => { :default => true }
+
+set :keep_releases, 5
+
+after "deploy:update",  "deploy:cleanup"
+after "deploy:update",  "foreman:export"
+
+namespace :deploy do
+  task :stop do
+    run "sudo stop astor"
+  end
+  task :start do
+    run "sudo start astor"
+  end
+  task :restart do
+    run "sudo start astor || sudo restart astor"
+  end
+end
+
+namespace :foreman do
+  desc "Export the Procfile to Ubuntu's upstart scripts"
+  task :export do
+    run "cd #{release_path} && sudo bundle exec foreman export upstart /etc/init -t config/upstart -a astor -c astor=1 -u #{user} -l #{shared_path}/log"
+  end
+  
+  desc "Start the application services"
+  task :start do
+    sudo "start astor"
+  end
+
+  desc "Stop the application services"
+  task :stop do
+    sudo "stop astor"
+  end
+end
