@@ -48,14 +48,15 @@ Deploying Astor to EC2 is pretty straight forward. On AWS Console:
   * Once the instance is up and running, ssh into it and run:
 
 
-        sudo mkdir /var/www
-        sudo chown -R ubuntu:ubuntu /var/www
+        sudo mkdir /var/astor
+        sudo chown -R ubuntu:ubuntu /var/astor
         sudo apt-get update
         sudo apt-get install git build-essential libxslt-dev libxml2-dev ruby1.9.3 libzmq-dev
 
 
 Then, on your local clone:
 
+  * Copy _config/astor.yml.sample_ to _config/astor.yml_ and customize it if needed 
   * Copy _config/deploy.rb.sample_ to _config/deploy.rb_ and customize it with your repository
   * Copy _config/ec2.yml.sample_ to _config/ec2.yml_ and complete it with [your EC2 keys](http://i.imgur.com/UM9sa.png)
 

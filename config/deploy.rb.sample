@@ -7,15 +7,15 @@ require 'capify-ec2/capistrano'
 ssh_options[:forward_agent] = true
 default_run_options[:pty] = true
 
-set :application, "astor"
+set :application, "astor-collector"
 set :scm, :git
 
 ##
 ## Deployment settings
 ##
-set :repository,  "<YOUR_ASTOR-COLLECTOR_GIT_REPOSITORY>"
+set :repository,  "https://github.com/malditogeek/astor-collector.git"
 set :user, "ubuntu"
-set :deploy_to, "/var/www/#{application}"
+set :deploy_to, "/var/astor/#{application}"
 
 set :user, user
 set :branch, "master"
@@ -26,8 +26,9 @@ ec2_roles :name => :app, :options => { :default => true }
 
 set :keep_releases, 5
 
-after "deploy:update",  "deploy:cleanup"
-after "deploy:update",  "foreman:export"
+after "deploy:update", "deploy:cleanup"
+after "deploy:update", "foreman:export"
+after "deploy:update", "config:push"
 
 namespace :deploy do
   task :stop do
@@ -55,5 +56,12 @@ namespace :foreman do
   desc "Stop the application services"
   task :stop do
     sudo "stop astor"
+  end
+end
+
+namespace :config do
+  desc "Push the local astor.yml config file to the server"
+  task :push do
+    upload("#{File.expand_path('config/astor.yml')}", "#{current_path}/config/astor.yml")
   end
 end

@@ -13,8 +13,8 @@
   :host: 0.0.0.0
   :port: 8890
 
-# Path for the DB, if not present defaults to $PWD
-:db:
+# Path for the metrics DB
+:db: '/var/astor/astor-metrics-db'
 
 # Verbose logging
 :verbose: false

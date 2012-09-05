@@ -9,6 +9,7 @@ bin
 # Deployment
 config/ec2.yml
 config/deploy.rb
+config/astor.yml
 
 # Astor
 db

@@ -6,14 +6,22 @@ $stdout.sync = true
 require 'optparse'
 require 'yaml'
 
-cfg = YAML.load_file(File.expand_path('config/astor.yml'))
+config_file = File.expand_path('config/astor.yml')
+
+if !File.exists?(config_file)
+  puts " * Missing configuration file: #{config_file}"
+  puts " * You can use config/astor.yml.sample as a template."
+  exit 1
+end
+
+cfg = YAML.load_file(config_file)
 
 # Default options are loaded from the YAML config file but the CLI has priority.
 opts = {}
 opts[:srv]  = "#{cfg[:collector][:host]}:#{cfg[:collector][:port]}"
 opts[:rest] = "#{cfg[:rest][:host]}:#{cfg[:rest][:port]}"
 opts[:zmq]  = "#{cfg[:zmq][:host]}:#{cfg[:zmq][:port]}"
-opts[:db]   = cfg[:db] || File.expand_path('db')
+opts[:db]   = cfg[:db]
 opts[:vrb]  = cfg[:verbose]
 
 # CLI option parser
