@@ -1,7 +1,5 @@
-Astor, an alternative to StatsD/Graphite
+Astor, an alternative to StatsD+Graphite
 ========================================
-
-API compatible with StatsD. Replacement for Graphite.
 
 ![Astor Piazzolla](http://i.imgur.com/TPuRo.jpg)
 
@@ -43,7 +41,7 @@ Deployment
 Deploying Astor to EC2 is pretty straight forward. On AWS Console:
 
   * Create a new Amazon EC2 instance using the _Ubuntu 12.04_ AMI.
-  * We'll use capify-ec2 so you need to [tag your instance properly](http://i.imgur.com/Vf94k.png)
+  * We'll use capify-ec2 so you need to [tag your instance properly](http://i.imgur.com/owe8P.png)
   * Customize your Security Groups and [open the right ports](http://i.imgur.com/BnBei.png)
   * Once the instance is up and running, ssh into it and run:
 
@@ -52,6 +50,7 @@ Deploying Astor to EC2 is pretty straight forward. On AWS Console:
         sudo chown -R ubuntu:ubuntu /var/astor
         sudo apt-get update
         sudo apt-get install git build-essential libxslt-dev libxml2-dev ruby1.9.3 libzmq-dev
+        sudo gem install bundler
 
 
 Then, on your local clone:
