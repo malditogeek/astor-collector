@@ -1,6 +1,10 @@
 #!/usr/bin/env ruby
 # encoding: UTF-8
 
+##
+## Send metrics to Astor using the StatsD client.
+##
+
 if ARGV.empty?
   puts 'Usage: ./client.rb <namespace> <metric> <value>'
   exit(2)
