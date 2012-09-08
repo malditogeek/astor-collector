@@ -65,6 +65,38 @@ Then, on your local clone:
 
 
 About Heroku: Is not possible to route UDP traffic at the moment but this may change in the future (https://groups.google.com/forum/?fromgroups=#!topic/heroku/z6haBrCQ9ZA)
+
+REST API
+--------
+
+_id_ format is: type-metric-key, for example: 
+
+  * product.clicks counter => c-product-clicks)
+  * api.request timer => ms-api-request
+  * current.users gauge => g-current-users
+
+Availabe methods:
+
+  * GET http://127.0.0.1:8889/v1/metrics
+    * List of metrics
+
+  * GET http://127.0.0.1:8889/v1/metrics/:id
+    * Get datapoints (minute resolution) for the given metric id
+    * Optional parameteres:
+      * offset: -1day, -7days, -1month
+
+  * POST http://127.0.0.1:8889/v1/metrics/:id
+    * Post a datapoint for the given metric id
+    * Mandatory parameters:
+      * value: metric value
+
+  * DELETE http://127.0.0.1:8889/v1/metrics/:id 
+    * Delete all datapoints for the given metric id
+
+Event Stream
+------------
+
+[Check example](https://github.com/malditogeek/astor-collector/blob/master/examples/stream_consumer.rb)
   
 TODO
 ----
