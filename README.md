@@ -14,6 +14,7 @@ Real-time metric visualization. Based on SocketStream (Node) and Backbone. [Find
 Collector features
 ------------------
 
+  * API compatible with StatsD, push data with any StatsD client
   * Second-by-second data resolution for active metrics
   * Minute-by-minute data resolution for archived metrics
   * Unlimited retention (well, as much as you can store)
