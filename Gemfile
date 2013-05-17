@@ -1,7 +1,7 @@
 source :rubygems
 
 group :server do 
-  gem 'leveldb-ruby', '0.14', require: 'leveldb'
+  gem 'leveldb-ruby', '0.15', require: 'leveldb'
   gem 'yajl-ruby',    '1.1.0', require: ['yajl', 'yajl/json_gem']
   gem 'foreman',      '0.40.0'
 

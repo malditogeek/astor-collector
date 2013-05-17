@@ -64,7 +64,7 @@ GEM
     hashie (1.2.0)
     highline (1.6.19)
     http_parser.rb (0.5.3)
-    leveldb-ruby (0.14)
+    leveldb-ruby (0.15)
     linefit (0.3.0)
     log4r (1.1.10)
     mime-types (1.19)
@@ -104,7 +104,7 @@ DEPENDENCIES
   foreman (= 0.40.0)
   goliath (= 1.0.0)
   grape (= 0.2.1)
-  leveldb-ruby (= 0.14)
+  leveldb-ruby (= 0.15)
   linefit (= 0.3.0)
   rack-test
   statsd-ruby
