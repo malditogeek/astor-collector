@@ -39,4 +39,9 @@ Bundler.require :server
 
 require_relative 'lib/runner'
 
+if !Dir.exists?(opts[:db])
+  puts " * Missing database: #{opts[:db]}"
+  exit 1
+end
+
 Astor::Runner.new(opts).run!
