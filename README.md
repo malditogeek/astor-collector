@@ -26,7 +26,7 @@ Pre-requisites
 --------------
 
   * Ruby 1.9+
-  * ZeroMQ dev 
+  * ZeroMQ dev (>= 2.1, < 3.0)
 
 Getting started
 ---------------
